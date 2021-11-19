@@ -169,7 +169,7 @@ def vicks_reels():
     except Exception as e:
         return render_template("404.html", message = f'{e}')
 
-# ===================================================
+# ==========================---------=========================
 
 @app.route("/mashup")
 def mashup():
@@ -177,7 +177,7 @@ def mashup():
     return render_template('mashup.html',
                            scroll='vickscroll',
                            pageviews=pageviews,
-                           path='uploads/mashup/1631081300.mp4'
+                           path='uploads/mashup/audio1637349073.mp4'
                             )
 
 
@@ -202,15 +202,25 @@ def vicks_mashup():
         vpath = reels.download(vid, vpath)
         apath = reels.download(aud, apath)
 
-        print('\n=-=-=-=-=-=-=-> ', apath)
+        # from moviepy.editor import VideoFileClip, AudioFileClip
+        import moviepy.editor as mpe
+            
+        videoclip = mpe.VideoFileClip(vpath)
+        vidur = videoclip.duration
+        background_music = mpe.AudioFileClip(apath)
+        audur = background_music.duration
 
-        # import moviepy.editor as mp
-        # clip = mp.VideoFileClip(path)
-        # clip.audio.write_audiofile(path)
+        dur = min(audur, vidur)
+        print('\n**************-->', dur)
+        videoclip = videoclip.subclip(0, dur)
+        background_music = background_music.subclip(0, dur)
+
+        new_clip = videoclip.set_audio(background_music)
+        new_clip.write_videofile(apath)
 
         pageviews = callviews()
         return render_template('mashup.html',
-                                path=vpath,
+                                path=apath,
                                 scroll='vickscroll',
                                 pageviews=pageviews,
                                 )

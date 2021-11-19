@@ -1,6 +1,5 @@
 import time
 from instascrape import Reel
-# import requests
 
 # https://github.com/csuhan/ReDet/issues/14#issuecomment-914544044
 # https://skylens.io/blog/how-to-find-your-instagram-session-id
@@ -22,15 +21,6 @@ def download(link,
             google_reel=Reel(link)
             google_reel.scrape(headers=headers)
             google_reel.download(fp=path)
-
-            # link = link.split('/')[4]
-            # link = f'https://www.instagram.com/reel/{link}/?__a=1'
-            # response = requests.get(link)
-            #
-            # response.raise_for_status()  # raises exception when not a 2xx response
-            # if response.status_code != 204:
-            #     link = response.json()
-            # print(link)
 
         else:
             print("Empty field","Please fill out the field")
