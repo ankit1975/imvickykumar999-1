@@ -41,7 +41,7 @@ pyttsx3
 gTTS
 xlsxwriter
 secure-smtplib
-moviepy==0.2.0
+moviepy==1.0.3
 pandas
 pyinstaller
 insta-scrape
